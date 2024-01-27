@@ -14,7 +14,7 @@ const toggleToDo = (index)=>({index,type:TOGGLE_TODO})
 /**Initial state */
 
 const initialState={
-  todo:[]
+  todos:[]
 }
 
 // Reducer
@@ -24,7 +24,30 @@ const initialState={
 function todoReducer(state=initialState,action){
   switch (action.type) {
     case ADD_TODO :
+      //returning the modified state
+      return{
+        //copy the current state
+        ...state,
+        todos:[
+          //copy the current data in todo array
+          ...state.todos,
+          //modify the data
+          {
+            text:action.text,
+            completed:false
+          }
+        ]
+      }
     case TOGGLE_TODO:
+      return{
+        ...state,
+        todos:todos.map((todo,index)=>{
+          if(index===action.index){
+            todo.completed=!todo.completed
+          }
+          return todo
+        })
+      }
   
     default:
       return state
